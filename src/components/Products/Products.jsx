@@ -10,7 +10,11 @@ export default function Products({ title, style = {}, products, amount }) {
       {title && <h2>{title}</h2>}
       <div className={styles.list}>
         {list?.map((product) => (
-          <Link to={`/products/${product.id}`} className={styles.product}>
+          <Link
+            key={product.id}
+            to={`/products/${product.id}`}
+            className={styles.product}
+          >
             <div
               className={styles.image}
               style={{ backgroundImage: `url(${product.images[0]})` }}

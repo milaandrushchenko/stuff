@@ -10,7 +10,11 @@ export default function Categories({ title, categories, amount }) {
       <h2>{title}</h2>
       <div className={styles.list}>
         {list?.map((category) => (
-          <Link to={`/categories/${category.id}`} className={styles.item}>
+          <Link
+            key={category.id}
+            to={`/categories/${category.id}`}
+            className={styles.item}
+          >
             <div
               className={styles.image}
               style={{ backgroundImage: `url(${category.image})` }}
