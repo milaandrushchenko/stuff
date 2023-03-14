@@ -6,11 +6,17 @@ import LOGO from "../../images/logo.svg";
 import AVATAR from "../../images/avatar.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleForm } from "../../features/user/userSlice";
+import { useGetProductsQuery } from "../../features/api/apiSlice";
 
 export default function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
+  const [search, setSearch] = useState("");
+
+  const { data, isLoading } = useGetProductsQuery({ title: search });
+
+  console.log(data);
 
   const [values, setValues] = useState({
     name: "Guest",
@@ -26,6 +32,10 @@ export default function Header() {
   const handleClick = () => {
     if (!currentUser) dispatch(toggleForm(true));
     else navigate(ROUTES.PROFILE);
+  };
+
+  const handleSearch = ({ target: { value } }) => {
+    setSearch(value);
   };
 
   return (
@@ -56,11 +66,36 @@ export default function Header() {
               name="search"
               placeholder="Search for anything..."
               autoComplete="off"
-              onChange={() => {}}
-              value=""
+              onChange={handleSearch}
+              value={search}
             />
           </div>
-          {false && <div className={styles.box}></div>}
+          {search && (
+            <div className={styles.box}>
+              {isLoading
+                ? "Loading"
+                : !data.length
+                ? "No results"
+                : data.map((product) => {
+                    return (
+                      <Link
+                        onClick={() => setSearch("")}
+                        key={product.id}
+                        to={`/products/${product.id}`}
+                        className={styles.product}
+                      >
+                        <div
+                          className={styles.image}
+                          style={{
+                            backgroundImage: `url(${product.images[0]})`,
+                          }}
+                        />
+                        <h3 className={styles.title}>{product.title}</h3>
+                      </Link>
+                    );
+                  })}
+            </div>
+          )}
         </form>
         <div className={styles.account}>
           <Link to={ROUTES.PROFILE} className={styles.favourites}>
