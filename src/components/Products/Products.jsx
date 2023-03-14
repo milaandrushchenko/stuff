@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "../../styles/Products.module.css";
 
 export default function Products({ title, style = {}, products, amount }) {
-  const list = products.filter((_, i) => i < amount);
+  const list = amount ? products.filter((_, i) => i < amount) : products;
 
   return (
     <section className={styles.products} style={style}>
