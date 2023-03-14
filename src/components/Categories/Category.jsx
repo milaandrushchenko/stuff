@@ -64,6 +64,12 @@ export default function Category() {
     setValues({ ...values, [name]: value });
   };
 
+  const handleReset = () => {
+    setValues(defaultValues);
+    setParams(defaultParams);
+    setEnd(false);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -114,7 +120,7 @@ export default function Category() {
       ) : !isSuccess || !items.length ? (
         <div className={styles.back}>
           <span>No results</span>
-          <button>Reset</button>
+          <button onClick={handleReset}>Reset</button>
         </div>
       ) : (
         <Products products={items} style={{ padding: 0 }} />
