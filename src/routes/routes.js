@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../components/App/App";
 import Cart from "../components/Cart/Cart";
 import SingleCategory from "../components/Categories/SingleCategory";
+import Dash from "../components/Dash/Dash";
 import Home from "../components/Home/Home";
 import SingleProduct from "../components/Products/SingleProduct";
 import Profile from "../components/Profile/Profile";
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
         element: <Cart />,
       },
     ],
+  },
+  {
+    path: "/dash",
+    element: <Dash />,
   },
 ]);
 

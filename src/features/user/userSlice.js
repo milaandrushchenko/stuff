@@ -75,7 +75,7 @@ const userSlice = createSlice({
       state.cart = newCart;
     },
     removeItemToCart: (state, { payload }) => {
-      state.cart = state.cart.filter(({ id }) => id != payload);
+      state.cart = state.cart.filter(({ id }) => id !== payload);
     },
     toggleForm: (state, { payload }) => {
       state.showForm = payload;
